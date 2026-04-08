@@ -1,370 +1,176 @@
 <!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>周一不想上班生成器</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #ff9800 0%, #ffb74d 50%, #fff3e0 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .container {
-            background: white;
-            border-radius: 24px;
-            padding: 40px;
-            max-width: 500px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(255,152,0,0.3);
-            text-align: center;
-        }
-        h1 {
-            color: #e65100;
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-        .subtitle {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 30px;
-        }
-        .display {
-            background: #fff3e0;
-            border-radius: 16px;
-            padding: 30px;
-            margin-bottom: 20px;
-            min-height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .display-text {
-            font-size: 20px;
-            color: #333;
-            font-weight: 500;
-            line-height: 1.6;
-        }
-        .btn-group {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .btn {
-            padding: 14px 28px;
-            border-radius: 50px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: none;
-        }
-        .btn:hover {
-            transform: translateY(-2px);
-        }
-        .btn-generate {
-            background: linear-gradient(135deg, #ff9800, #ffb74d);
-            color: white;
-        }
-        .btn-copy {
-            background: white;
-            color: #e65100;
-            border: 2px solid #ff9800;
-        }
-        .btn-share {
-            background: #25f4ee;
-            color: #333;
-        }
-        .copied {
-            color: #4caf50;
-            font-size: 14px;
-            margin-top: 10px;
-            display: none;
-        }
-        .emoji {
-            font-size: 64px;
-            margin-bottom: 10px;
-        }
-        .footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #ffe0b2;
-        }
-        .footer p {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-        .footer-links {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .footer-link {
-            background: #fff3e0;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            color: #e65100;
-            text-decoration: none;
-        }
-        .share-section {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #ffe0b2;
-        }
-        .share-section p {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 12px;
-        }
-        .share-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .share-btn {
-            padding: 10px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            cursor: pointer;
-            border: none;
-            transition: transform 0.2s;
-        }
-        .share-btn:hover {
-            transform: translateY(-2px);
-        }
-        .share-xiaohongshu {
-            background: #ff2442;
-            color: white;
-        }
-        .share-weibo {
-            background: #ff6b00;
-            color: white;
-        }
-        .share-generate {
-            background: #e65100;
-            color: white;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="emoji">😫</div>
-        <h1>周一不想上班</h1>
-        <p class="subtitle">生成你的周一发疯文案</p>
-        
-        <div class="display">
-            <p class="display-text" id="content">点下面按钮生成你的周一状态</p>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>周一续命包 | 周一不想上班生成器</title>
+    <meta
+      name="description"
+      content="把周一不想上班这件事，变成一套能直接复制的续命包：发疯文案、请假理由、同事回复和群聊配文。"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23df5d12'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-size='34' fill='white'%3E%E5%91%A8%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark">周</div>
+          <span>清溪的周一续命包</span>
         </div>
-        
-        <div class="btn-group">
-            <button class="btn btn-generate" onclick="generate()">🔄 再来一条</button>
-            <button class="btn btn-copy" onclick="copy()">📋 复制文案</button>
-        </div>
-        <p class="copied" id="copied">✅ 已复制！</p>
-        
-        <div class="footer">
-            <p>我是<span style="color:#e65100;font-weight:600">清溪</span>，你的周一战友 💪</p>
-            <div class="footer-links">
-                <a href="https://xhslink.com/m/3pdBcBDfYmx" class="footer-link">📕 小红书</a>
-                <a href="https://v.douyin.com/fZNLm0iCwfA/" class="footer-link">🎬 抖音</a>
-                <a href="https://qingxihub.com/tools" class="footer-link">🛠️ AI工具箱</a>
+        <nav class="topbar-links">
+          <a href="https://qingxihub.com/tools" target="_blank" rel="noreferrer">更多工具</a>
+          <a href="https://v.douyin.com/fZNLm0iCwfA/" target="_blank" rel="noreferrer">抖音</a>
+          <a href="https://xhslink.com/m/3pdBcBDfYmx" target="_blank" rel="noreferrer">小红书</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <article class="panel hero-copy">
+          <span class="eyebrow">今天适合低调发疯，但别空手发疯</span>
+          <h1>周一不想上班？<br />先领一套能直接用的续命包。</h1>
+          <p>
+            不只给你一句梗，而是一次给你四样能立刻拿去用的东西：发疯文案、体面请假版、同事可直接发、群聊配文。
+          </p>
+
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <strong id="mode-count">4</strong>
+              <span>种周一状态</span>
             </div>
-            <div class="share-section">
-                <p>分享给朋友 👇</p>
-                <div class="share-buttons">
-                    <button class="share-btn share-xiaohongshu" onclick="shareToXiaohongshu()">📕 小红书</button>
-                    <button class="share-btn share-weibo" onclick="shareToWeibo()">🌐 某浪</button>
-                    <button class="share-btn share-generate" onclick="generateShareImage()">🖼️ 生成分享图</button>
-                </div>
+            <div class="hero-stat">
+              <strong>4</strong>
+              <span>套即时输出</span>
             </div>
+            <div class="hero-stat">
+              <strong>1</strong>
+              <span>次点击出结果</span>
+            </div>
+          </div>
+        </article>
+
+        <aside class="panel hero-side">
+          <section class="side-card">
+            <h2>本周最常复制</h2>
+            <ul id="top-reasons"></ul>
+          </section>
+          <section class="side-card">
+            <h2>更容易被转发的点</h2>
+            <p>不要只会说“我不想上班”，要能顺手发出去。大家爱转发的是“这句太像我了，而且我现在就能用”。</p>
+          </section>
+        </aside>
+      </section>
+
+      <section class="panel builder">
+        <h2>先选你今天是哪一种周一</h2>
+        <div class="mode-grid">
+          <button
+            class="select-card active"
+            data-mode="soul"
+            data-placeholder="比如：日报、回消息、整理待办"
+          >
+            <strong>人到了，魂没到</strong>
+            <span>适合那种电脑开了，但整个人还没完全接通的早上。</span>
+          </button>
+          <button
+            class="select-card"
+            data-mode="meeting"
+            data-placeholder="比如：周会、复盘会、客户会"
+          >
+            <strong>不想开会</strong>
+            <span>适合一想到周会就头皮发麻，只想异步解决的人。</span>
+          </button>
+          <button
+            class="select-card"
+            data-mode="leave"
+            data-placeholder="比如：述职会、提案、加班任务"
+          >
+            <strong>想请假</strong>
+            <span>适合今天真的不想硬扛，想体面撤退一下。</span>
+          </button>
+          <button
+            class="select-card"
+            data-mode="feral"
+            data-placeholder="比如：老板消息、临时需求、无意义沟通"
+          >
+            <strong>想发疯但还得上班</strong>
+            <span>适合心里已经炸了，但表面还得回一句“收到”。</span>
+          </button>
         </div>
-    </div>
 
-    <script>
-        const contents = [
-            "周一：还没准备好上班",
-            "周一综合症，建议请假到周五",
-            "周一的我：身体在公司，灵魂在床上",
-            "老板，周一说实话：我失联了",
-            "周一请假理由：跟床的感情出了问题",
-            "周一：我的灵魂还在周末，身体已经出卖了我",
-            "周一上班状态：人到了，魂没到",
-            "周一的我：不敢开电脑，怕看到工作消息",
-            "周一综合症晚期，已经开始期待周五了",
-            "周一：咖啡喝了三杯，还是困",
-            "老板问周一感觉怎么样：还活着",
-            "周一的我：周一已经开始了？我不知道啊",
-            "周一适合的工作：发呆",
-            "周一请假理由：被床封印了",
-            "周一的我：假装在工作，实际在神游"
-        ];
+        <h2>今天的发疯程度</h2>
+        <div class="intensity-grid">
+          <button class="chip-button" data-intensity="low">
+            <strong>轻微摆烂</strong>
+            <span>还算体面，只是慢半拍。</span>
+          </button>
+          <button class="chip-button active" data-intensity="sharp">
+            <strong>正常发疯</strong>
+            <span>已经不想装热爱工作了。</span>
+          </button>
+          <button class="chip-button" data-intensity="feral">
+            <strong>彻底没电</strong>
+            <span>今天全靠职业道德硬撑。</span>
+          </button>
+        </div>
 
-        function generate() {
-            const content = contents[Math.floor(Math.random() * contents.length)];
-            document.getElementById('content').textContent = content;
-            document.getElementById('copied').style.display = 'none';
-        }
+        <label for="detail-input">把今天最不想面对的那件事丢进来</label>
+        <input
+          id="detail-input"
+          class="detail-field"
+          type="text"
+          placeholder="比如：日报、回消息、整理待办"
+        />
 
-        function copy() {
-            const text = document.getElementById('content').textContent;
-            navigator.clipboard.writeText(text).then(() => {
-                document.getElementById('copied').style.display = 'block';
-                setTimeout(() => {
-                    document.getElementById('copied').style.display = 'none';
-                }, 2000);
-            });
-        }
+        <div class="builder-actions">
+          <button id="generate-button" class="primary-button">生成我的周一续命包</button>
+          <button id="shuffle-reason" class="ghost-button">换一组热门理由</button>
+        </div>
+        <p id="copied-hint" class="muted-note" hidden>已复制</p>
+      </section>
 
-        function shareToXiaohongshu() {
-            const text = '周一不想上班？我有发疯文案生成器！😫✨ qingxihub.com/monday';
-            const url = 'https://qingxihub.com/monday';
-            window.open(`https://www.xiaohongshu.com/explore?url=${encodeURIComponent(url)}&title=${encodeURIComponent(text)}`, '_blank');
-        }
+      <section id="result-panel" class="panel result-panel" hidden>
+        <h2>你的周一续命包</h2>
+        <p id="result-summary" class="result-meta"></p>
 
-        function shareToWeibo() {
-            const text = '周一不想上班？我有发疯文案生成器！😫✨ qingxihub.com/monday';
-            window.open(`https://service.weibo.com/share/share.php?content=${encodeURIComponent(text)}`, '_blank');
-        }
+        <div class="result-grid">
+          <article class="result-card">
+            <h3>今日发疯文案</h3>
+            <p id="result-headline"></p>
+            <button class="copy-chip" data-copy-field="headline">复制这一条</button>
+          </article>
+          <article class="result-card">
+            <h3>体面请假 / 缓冲版</h3>
+            <p id="result-excuse"></p>
+            <button class="copy-chip" data-copy-field="excuse">复制这一条</button>
+          </article>
+          <article class="result-card">
+            <h3>同事可直接发</h3>
+            <p id="result-reply"></p>
+            <button class="copy-chip" data-copy-field="reply">复制这一条</button>
+          </article>
+          <article class="result-card">
+            <h3>朋友圈 / 群聊配文</h3>
+            <p id="result-caption"></p>
+            <button class="copy-chip" data-copy-field="caption">复制这一条</button>
+          </article>
+        </div>
 
-        function generateShareImage() {
-            const content = document.getElementById('content').textContent;
-            
-            // 3:4 尺寸
-            const canvas = document.createElement('canvas');
-            canvas.width = 600;
-            canvas.height = 800;
-            const ctx = canvas.getContext('2d');
-            
-            // 渐变背景
-            const gradient = ctx.createLinearGradient(0, 0, 600, 800);
-            gradient.addColorStop(0, '#fff8f0');
-            gradient.addColorStop(1, '#ffecd2');
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, 600, 800);
-            
-            // 顶部装饰圆
-            ctx.beginPath();
-            ctx.arc(520, -50, 180, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(255, 152, 0, 0.15)';
-            ctx.fill();
-            
-            // 底部装饰圆
-            ctx.beginPath();
-            ctx.arc(-30, 850, 150, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(230, 81, 0, 0.1)';
-            ctx.fill();
-            
-            // 标题区块背景
-            ctx.fillStyle = 'rgba(255, 152, 0, 0.12)';
-            roundRect(ctx, 40, 60, 520, 120, 20);
-            ctx.fill();
-            
-            // 标题
-            ctx.fillStyle = '#e65100';
-            ctx.font = 'bold 52px -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif';
-            ctx.fillText('周一不想上班 😫', 60, 145);
-            
-            // 副标题
-            ctx.fillStyle = '#999';
-            ctx.font = '22px -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif';
-            ctx.fillText('打工人发疯文案生成器', 60, 185);
-            
-            // 分隔线
-            ctx.strokeStyle = '#ffe0b2';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.moveTo(40, 230);
-            ctx.lineTo(560, 230);
-            ctx.stroke();
-            
-            // 内容卡片背景
-            ctx.fillStyle = 'white';
-            roundRect(ctx, 40, 280, 520, 260, 24);
-            ctx.fill();
-            ctx.strokeStyle = '#ffe0b2';
-            ctx.lineWidth = 2;
-            ctx.stroke();
-            
-            // 内容文字
-            ctx.fillStyle = '#333';
-            ctx.font = 'bold 36px -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif';
-            ctx.textAlign = 'center';
-            
-            // 换行处理 - 内容更大了
-            const lines = wrapTextLarge(ctx, content, 480);
-            let y = 420;
-            lines.forEach(line => {
-                ctx.fillText(line, 300, y);
-                y += 55;
-            });
-            
-            ctx.textAlign = 'left';
-            
-            // 标签
-            ctx.fillStyle = '#e65100';
-            ctx.font = 'bold 22px -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif';
-            ctx.fillText('#周一综合症  #打工人  #发疯文案', 60, 660);
-            
-            // 底部栏
-            ctx.fillStyle = '#e65100';
-            roundRect(ctx, 160, 690, 280, 80, 40);
-            ctx.fill();
-            
-            // 底部文字
-            ctx.fillStyle = 'white';
-            ctx.font = 'bold 24px -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText('qingxihub.com/monday', 300, 745);
-            ctx.textAlign = 'left';
-            
-            // 下载
-            const link = document.createElement('a');
-            link.download = '周一不想上班分享.png';
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-        }
-        
-        function roundRect(ctx, x, y, w, h, r) {
-            ctx.beginPath();
-            ctx.moveTo(x + r, y);
-            ctx.arcTo(x + w, y, x + w, y + h, r);
-            ctx.arcTo(x + w, y + h, x, y + h, r);
-            ctx.arcTo(x, y + h, x, y, r);
-            ctx.arcTo(x, y, x + w, y, r);
-            ctx.closePath();
-        }
-        
-        function wrapTextLarge(ctx, text, maxWidth) {
-            if (text.length <= 12) return [text];
-            if (ctx.measureText(text).width <= maxWidth) return [text];
-            const chars = text.split('');
-            const lines = [];
-            let currentLine = '';
-            for (let char of chars) {
-                const testLine = currentLine + char;
-                if (ctx.measureText(testLine).width > maxWidth) {
-                    lines.push(currentLine);
-                    currentLine = char;
-                } else {
-                    currentLine = testLine;
-                }
-            }
-            if (currentLine) lines.push(currentLine);
-            return lines.slice(0, 3);
-        }
-    </script>
-</body>
+        <div class="footer-note">
+          <strong>今天的提醒：</strong>
+          <span id="result-reminder"></span>
+        </div>
+
+        <div class="result-actions">
+          <button id="copy-all" class="primary-button">复制整套结果</button>
+          <button id="share-result" class="ghost-button">分享给朋友</button>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
 </html>
