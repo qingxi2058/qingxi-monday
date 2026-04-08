@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>周一续命包 | 周一不想上班生成器</title>
+    <title>周一不想上班生成器</title>
     <meta
       name="description"
-      content="把周一不想上班这件事，变成一套能直接复制的续命包：发疯文案、请假理由、同事回复和群聊配文。"
+      content="周一不想上班？给你一条像你本人会发的文案，再顺手给你请假版、同事版和群聊版。"
     />
     <link
       rel="icon"
@@ -14,160 +14,79 @@
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body>
-    <main class="page-shell">
-      <header class="topbar">
-        <div class="brand">
-          <div class="brand-mark">周</div>
-          <span>清溪的周一续命包</span>
-        </div>
-        <nav class="topbar-links">
-          <a href="https://qingxihub.com/tools" target="_blank" rel="noreferrer">更多工具</a>
-          <a href="https://v.douyin.com/fZNLm0iCwfA/" target="_blank" rel="noreferrer">抖音</a>
-          <a href="https://xhslink.com/m/3pdBcBDfYmx" target="_blank" rel="noreferrer">小红书</a>
-        </nav>
-      </header>
+  <body class="monday-theme">
+    <main class="shell">
+      <section class="card">
+        <div class="hero-emoji">😫</div>
+        <h1>周一不想上班</h1>
+        <p class="subtitle">生成一条更像你本人会发的周一状态</p>
 
-      <section class="hero">
-        <article class="panel hero-copy">
-          <span class="eyebrow">今天适合低调发疯，但别空手发疯</span>
-          <h1>周一不想上班？<br />先领一套能直接用的续命包。</h1>
-          <p>
-            不只给你一句梗，而是一次给你四样能立刻拿去用的东西：发疯文案、体面请假版、同事可直接发、群聊配文。
-          </p>
+        <div class="chip-row compact" id="top-reasons"></div>
 
-          <div class="hero-stats">
-            <div class="hero-stat">
-              <strong id="mode-count">4</strong>
-              <span>种周一状态</span>
-            </div>
-            <div class="hero-stat">
-              <strong>4</strong>
-              <span>套即时输出</span>
-            </div>
-            <div class="hero-stat">
-              <strong>1</strong>
-              <span>次点击出结果</span>
-            </div>
-          </div>
-        </article>
-
-        <aside class="panel hero-side">
-          <section class="side-card">
-            <h2>本周最常复制</h2>
-            <ul id="top-reasons"></ul>
-          </section>
-          <section class="side-card">
-            <h2>更容易被转发的点</h2>
-            <p>不要只会说“我不想上班”，要能顺手发出去。大家爱转发的是“这句太像我了，而且我现在就能用”。</p>
-          </section>
-        </aside>
-      </section>
-
-      <section class="panel builder">
-        <h2>先选你今天是哪一种周一</h2>
-        <div class="mode-grid">
-          <button
-            class="select-card active"
-            data-mode="soul"
-            data-placeholder="比如：日报、回消息、整理待办"
-          >
-            <strong>人到了，魂没到</strong>
-            <span>适合那种电脑开了，但整个人还没完全接通的早上。</span>
+        <div class="chip-row" id="mode-row">
+          <button class="chip active" data-mode="soul" data-placeholder="比如：日报、回消息、整理待办">
+            人到了，魂没到
           </button>
-          <button
-            class="select-card"
-            data-mode="meeting"
-            data-placeholder="比如：周会、复盘会、客户会"
-          >
-            <strong>不想开会</strong>
-            <span>适合一想到周会就头皮发麻，只想异步解决的人。</span>
+          <button class="chip" data-mode="meeting" data-placeholder="比如：周会、复盘会、客户会">
+            不想开会
           </button>
-          <button
-            class="select-card"
-            data-mode="leave"
-            data-placeholder="比如：述职会、提案、加班任务"
-          >
-            <strong>想请假</strong>
-            <span>适合今天真的不想硬扛，想体面撤退一下。</span>
+          <button class="chip" data-mode="leave" data-placeholder="比如：述职会、提案、加班任务">
+            想请假
           </button>
-          <button
-            class="select-card"
-            data-mode="feral"
-            data-placeholder="比如：老板消息、临时需求、无意义沟通"
-          >
-            <strong>想发疯但还得上班</strong>
-            <span>适合心里已经炸了，但表面还得回一句“收到”。</span>
+          <button class="chip" data-mode="feral" data-placeholder="比如：老板消息、临时需求、无意义沟通">
+            想发疯但还得上班
           </button>
         </div>
 
-        <h2>今天的发疯程度</h2>
-        <div class="intensity-grid">
-          <button class="chip-button" data-intensity="low">
-            <strong>轻微摆烂</strong>
-            <span>还算体面，只是慢半拍。</span>
-          </button>
-          <button class="chip-button active" data-intensity="sharp">
-            <strong>正常发疯</strong>
-            <span>已经不想装热爱工作了。</span>
-          </button>
-          <button class="chip-button" data-intensity="feral">
-            <strong>彻底没电</strong>
-            <span>今天全靠职业道德硬撑。</span>
-          </button>
+        <div class="chip-row compact">
+          <button class="chip soft" data-intensity="low">轻微摆烂</button>
+          <button class="chip soft active" data-intensity="sharp">正常发疯</button>
+          <button class="chip soft" data-intensity="feral">彻底没电</button>
         </div>
 
-        <label for="detail-input">把今天最不想面对的那件事丢进来</label>
         <input
           id="detail-input"
-          class="detail-field"
+          class="text-input"
           type="text"
           placeholder="比如：日报、回消息、整理待办"
         />
 
-        <div class="builder-actions">
-          <button id="generate-button" class="primary-button">生成我的周一续命包</button>
-          <button id="shuffle-reason" class="ghost-button">换一组热门理由</button>
+        <div class="display">
+          <p class="display-label" id="result-summary">先点一下，抽你今天的周一状态</p>
+          <p class="display-text" id="result-headline">周一：还没准备好上班</p>
         </div>
-        <p id="copied-hint" class="muted-note" hidden>已复制</p>
-      </section>
 
-      <section id="result-panel" class="panel result-panel" hidden>
-        <h2>你的周一续命包</h2>
-        <p id="result-summary" class="result-meta"></p>
-
-        <div class="result-grid">
-          <article class="result-card">
-            <h3>今日发疯文案</h3>
-            <p id="result-headline"></p>
-            <button class="copy-chip" data-copy-field="headline">复制这一条</button>
-          </article>
-          <article class="result-card">
-            <h3>体面请假 / 缓冲版</h3>
+        <section id="detail-panel" class="detail-panel" hidden>
+          <article class="detail-item">
+            <span>体面请假版</span>
             <p id="result-excuse"></p>
-            <button class="copy-chip" data-copy-field="excuse">复制这一条</button>
           </article>
-          <article class="result-card">
-            <h3>同事可直接发</h3>
+          <article class="detail-item">
+            <span>同事可直接发</span>
             <p id="result-reply"></p>
-            <button class="copy-chip" data-copy-field="reply">复制这一条</button>
           </article>
-          <article class="result-card">
-            <h3>朋友圈 / 群聊配文</h3>
+          <article class="detail-item">
+            <span>群聊 / 朋友圈版</span>
             <p id="result-caption"></p>
-            <button class="copy-chip" data-copy-field="caption">复制这一条</button>
           </article>
-        </div>
+          <p class="detail-reminder" id="result-reminder"></p>
+        </section>
 
-        <div class="footer-note">
-          <strong>今天的提醒：</strong>
-          <span id="result-reminder"></span>
+        <div class="button-row">
+          <button id="generate-button" class="btn btn-primary">🔄 再来一条</button>
+          <button id="copy-all" class="btn btn-secondary">📋 复制整套</button>
+          <button id="share-result" class="btn btn-secondary">📤 分享</button>
         </div>
+        <p id="copied-hint" class="hint" hidden>已复制</p>
 
-        <div class="result-actions">
-          <button id="copy-all" class="primary-button">复制整套结果</button>
-          <button id="share-result" class="ghost-button">分享给朋友</button>
-        </div>
+        <footer class="footer">
+          <p>我是 <strong>清溪</strong>，你的周一战友</p>
+          <div class="footer-links">
+            <a href="https://xhslink.com/m/3pdBcBDfYmx" target="_blank" rel="noreferrer">📕 小红书</a>
+            <a href="https://v.douyin.com/fZNLm0iCwfA/" target="_blank" rel="noreferrer">🎬 抖音</a>
+            <a href="https://qingxihub.com/tools" target="_blank" rel="noreferrer">🛠️ AI工具箱</a>
+          </div>
+        </footer>
       </section>
     </main>
 

@@ -1,10 +1,10 @@
-import { createMondayKit, MONDAY_MODES } from "./logic.js";
+import { createMondayKit } from "./logic.js";
 
 const topReasons = [
-  "上午 9 点就开周会",
-  "刚坐下就被追进度",
-  "周末没休够，灵魂还没回工位",
   "今天只想回一句“收到”",
+  "周会一开就觉得这周已经累了",
+  "刚坐下就被追进度",
+  "周末没休够，魂还在床上",
 ];
 
 const state = {
@@ -15,9 +15,9 @@ const state = {
 const modeButtons = [...document.querySelectorAll("[data-mode]")];
 const intensityButtons = [...document.querySelectorAll("[data-intensity]")];
 const detailInput = document.querySelector("#detail-input");
-const resultPanel = document.querySelector("#result-panel");
 const copiedHint = document.querySelector("#copied-hint");
 const topReasonList = document.querySelector("#top-reasons");
+const detailPanel = document.querySelector("#detail-panel");
 
 const resultFields = {
   summary: document.querySelector("#result-summary"),
@@ -30,7 +30,7 @@ const resultFields = {
 
 function renderTopReasons() {
   topReasonList.innerHTML = topReasons
-    .map((reason) => `<li>${reason}</li>`)
+    .map((reason) => `<span class="chip" aria-hidden="true">${reason}</span>`)
     .join("");
 }
 
@@ -63,41 +63,32 @@ function renderKit(kit) {
   resultFields.excuse.textContent = kit.excuse;
   resultFields.reply.textContent = kit.reply;
   resultFields.caption.textContent = kit.caption;
-  resultFields.reminder.textContent = kit.reminder;
-  resultPanel.hidden = false;
-  resultPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+  resultFields.reminder.textContent = `今天的提醒：${kit.reminder}`;
+  detailPanel.hidden = false;
 
   document.querySelector("#copy-all").onclick = () =>
     copyText(
       [
-        `周一状态：${kit.headline}`,
-        `请假/缓冲版：${kit.excuse}`,
+        kit.headline,
+        `体面请假版：${kit.excuse}`,
         `同事可直接发：${kit.reply}`,
-        `朋友圈/群聊配文：${kit.caption}`,
+        `群聊版：${kit.caption}`,
       ].join("\n"),
-      "整套周一续命包已复制",
+      "整套已复制",
     );
 
   document.querySelector("#share-result").onclick = async () => {
     if (navigator.share) {
       await navigator.share({
-        title: "周一续命包",
+        title: "周一不想上班生成器",
         text: kit.shareText,
         url: window.location.href,
       });
       return;
     }
+
     await copyText(`${kit.shareText} ${window.location.href}`, "分享文案已复制");
   };
-
-  document
-    .querySelectorAll("[data-copy-field]")
-    .forEach((button) => {
-      button.onclick = () => {
-        const field = button.dataset.copyField;
-        copyText(kit[field], "这条已复制");
-      };
-    });
 }
 
 document.querySelector("#generate-button").addEventListener("click", () => {
@@ -106,14 +97,14 @@ document.querySelector("#generate-button").addEventListener("click", () => {
     intensity: state.intensity,
     detail: detailInput.value,
   });
+
   renderKit(kit);
 });
 
 modeButtons.forEach((button) => {
   button.addEventListener("click", () => {
     state.mode = button.dataset.mode;
-    const placeholder = button.dataset.placeholder;
-    detailInput.placeholder = placeholder;
+    detailInput.placeholder = button.dataset.placeholder;
     updateActiveButtons();
   });
 });
@@ -132,16 +123,5 @@ detailInput.addEventListener("keydown", (event) => {
   }
 });
 
-document.querySelector("#shuffle-reason").addEventListener("click", () => {
-  const items = [...topReasons];
-  topReasons.push(items.shift());
-  topReasons.splice(0, items.length, ...items);
-  renderTopReasons();
-});
-
 renderTopReasons();
 updateActiveButtons();
-
-document.querySelector("#mode-count").textContent = String(
-  Object.keys(MONDAY_MODES).length,
-);
