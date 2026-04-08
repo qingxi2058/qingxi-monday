@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>周一不想上班生成器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff9800 0%, #ffb74d 50%, #fff3e0 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(255,152,0,0.3);
+            text-align: center;
+        }
+        h1 {
+            color: #e65100;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+        .display {
+            background: #fff3e0;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 20px;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .display-text {
+            font-size: 20px;
+            color: #333;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn-generate {
+            background: linear-gradient(135deg, #ff9800, #ffb74d);
+            color: white;
+        }
+        .btn-copy {
+            background: white;
+            color: #e65100;
+            border: 2px solid #ff9800;
+        }
+        .btn-share {
+            background: #25f4ee;
+            color: #333;
+        }
+        .copied {
+            color: #4caf50;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+        .emoji {
+            font-size: 64px;
+            margin-bottom: 10px;
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ffe0b2;
+        }
+        .footer p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .footer-links {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .footer-link {
+            background: #fff3e0;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #e65100;
+            text-decoration: none;
+        }
+        .share-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #ffe0b2;
+        }
+        .share-section p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .share-btn {
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.2s;
+        }
+        .share-btn:hover {
+            transform: translateY(-2px);
+        }
+        .share-xiaohongshu {
+            background: #ff2442;
+            color: white;
+        }
+        .share-weibo {
+            background: #ff6b00;
+            color: white;
+        }
+        .share-generate {
+            background: #e65100;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="emoji">😫</div>
+        <h1>周一不想上班</h1>
+        <p class="subtitle">生成你的周一发疯文案</p>
+        
+        <div class="display">
+            <p class="display-text" id="content">点下面按钮生成你的周一状态</p>
+        </div>
+        
+        <div class="btn-group">
+            <button class="btn btn-generate" onclick="generate()">🔄 再来一条</button>
+            <button class="btn btn-copy" onclick="copy()">📋 复制文案</button>
+        </div>
+        <p class="copied" id="copied">✅ 已复制！</p>
+        
+        <div class="footer">
+            <p>我是<span style="color:#e65100;font-weight:600">清溪</span>，你的周一战友 💪</p>
+            <div class="footer-links">
+                <a href="https://xhslink.com/m/3pdBcBDfYmx" class="footer-link">📕 小红书</a>
+                <a href="https://v.douyin.com/fZNLm0iCwfA/" class="footer-link">🎬 抖音</a>
+                <a href="https://qingxihub.com/tools" class="footer-link">🛠️ AI工具箱</a>
+            </div>
+            <div class="share-section">
+                <p>分享给朋友 👇</p>
+                <div class="share-buttons">
+                    <button class="share-btn share-xiaohongshu" onclick="shareToXiaohongshu()">📕 小红书</button>
+                    <button class="share-btn share-weibo" onclick="shareToWeibo()">🌐 某浪</button>
+                    <button class="share-btn share-generate" onclick="generateShareImage()">🖼️ 生成分享图</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const contents = [
+            "周一：还没准备好上班",
+            "周一综合症，建议请假到周五",
+            "周一的我：身体在公司，灵魂在床上",
+            "老板，周一说实话：我失联了",
+            "周一请假理由：跟床的感情出了问题",
+            "周一：我的灵魂还在周末，身体已经出卖了我",
+            "周一上班状态：人到了，魂没到",
+            "周一的我：不敢开电脑，怕看到工作消息",
+            "周一综合症晚期，已经开始期待周五了",
+            "周一：咖啡喝了三杯，还是困",
+            "老板问周一感觉怎么样：还活着",
+            "周一的我：周一已经开始了？我不知道啊",
+            "周一适合的工作：发呆",
+            "周一请假理由：被床封印了",
+            "周一的我：假装在工作，实际在神游"
+        ];
+
+        function generate() {
+            const content = contents[Math.floor(Math.random() * contents.length)];
+            document.getElementById('content').textContent = content;
+            document.getElementById('copied').style.display = 'none';
+        }
+
+        function copy() {
+            const text = document.getElementById('content').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                document.getElementById('copied').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('copied').style.display = 'none';
+                }, 2000);
+            });
+        }
+
+        function shareToXiaohongshu() {
+            const text = '周一不想上班？我有发疯文案生成器！😫✨ qingxihub.com/monday';
+            const url = 'https://qingxihub.com/monday';
+            window.open(`https://www.xiaohongshu.com/explore?url=${encodeURIComponent(url)}&title=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        function shareToWeibo() {
+            const text = '周一不想上班？我有发疯文案生成器！😫✨ qingxihub.com/monday';
+            window.open(`https://service.weibo.com/share/share.php?content=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        function generateShareImage() {
+            const content = document.getElementById('content').textContent;
+            
+            // 3:4 尺寸
+            const canvas = document.createElement('canvas');
+            canvas.width = 600;
+            canvas.height = 800;
+            const ctx = canvas.getContext('2d');
+            
+            // 渐变背景
+            const gradient = ctx.createLinearGradient(0, 0, 600, 800);
+            gradient.addColorStop(0, '#fff8f0');
+            gradient.addColorStop(1, '#ffecd2');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 600, 800);
+            
+            // 顶部装饰圆
+            ctx.beginPath();
+            ctx.arc(520, -50, 180, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(255, 152, 0, 0.15)';
+            ctx.fill();
+            
+            // 底部装饰圆
+            ctx.beginPath();
+            ctx.arc(-30, 850, 150, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(230, 81, 0, 0.1)';
+            ctx.fill();
+            
+            // 标题区块背景
+            ctx.fillStyle = 'rgba(255, 152, 0, 0.12)';
+            roundRect(ctx, 40, 60, 520, 120, 20);
+            ctx.fill();
+            
+            // 标题
+            ctx.fillStyle = '#e65100';
+            ctx.font = 'bold 52px -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif';
+            ctx.fillText('周一不想上班 😫', 60, 145);
+            
+            // 副标题
+            ctx.fillStyle = '#999';
+            ctx.font = '22px -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif';
+            ctx.fillText('打工人发疯文案生成器', 60, 185);
+            
+            // 分隔线
+            ctx.strokeStyle = '#ffe0b2';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(40, 230);
+            ctx.lineTo(560, 230);
+            ctx.stroke();
+            
+            // 内容卡片背景
+            ctx.fillStyle = 'white';
+            roundRect(ctx, 40, 280, 520, 260, 24);
+            ctx.fill();
+            ctx.strokeStyle = '#ffe0b2';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            
+            // 内容文字
+            ctx.fillStyle = '#333';
+            ctx.font = 'bold 36px -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif';
+            ctx.textAlign = 'center';
+            
+            // 换行处理 - 内容更大了
+            const lines = wrapTextLarge(ctx, content, 480);
+            let y = 420;
+            lines.forEach(line => {
+                ctx.fillText(line, 300, y);
+                y += 55;
+            });
+            
+            ctx.textAlign = 'left';
+            
+            // 标签
+            ctx.fillStyle = '#e65100';
+            ctx.font = 'bold 22px -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif';
+            ctx.fillText('#周一综合症  #打工人  #发疯文案', 60, 660);
+            
+            // 底部栏
+            ctx.fillStyle = '#e65100';
+            roundRect(ctx, 160, 690, 280, 80, 40);
+            ctx.fill();
+            
+            // 底部文字
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 24px -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('qingxihub.com/monday', 300, 745);
+            ctx.textAlign = 'left';
+            
+            // 下载
+            const link = document.createElement('a');
+            link.download = '周一不想上班分享.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        function roundRect(ctx, x, y, w, h, r) {
+            ctx.beginPath();
+            ctx.moveTo(x + r, y);
+            ctx.arcTo(x + w, y, x + w, y + h, r);
+            ctx.arcTo(x + w, y + h, x, y + h, r);
+            ctx.arcTo(x, y + h, x, y, r);
+            ctx.arcTo(x, y, x + w, y, r);
+            ctx.closePath();
+        }
+        
+        function wrapTextLarge(ctx, text, maxWidth) {
+            if (text.length <= 12) return [text];
+            if (ctx.measureText(text).width <= maxWidth) return [text];
+            const chars = text.split('');
+            const lines = [];
+            let currentLine = '';
+            for (let char of chars) {
+                const testLine = currentLine + char;
+                if (ctx.measureText(testLine).width > maxWidth) {
+                    lines.push(currentLine);
+                    currentLine = char;
+                } else {
+                    currentLine = testLine;
+                }
+            }
+            if (currentLine) lines.push(currentLine);
+            return lines.slice(0, 3);
+        }
+    </script>
+</body>
+</html>
